@@ -65,7 +65,7 @@ _original_get_response = http.root.__class__.get_response
 
 def get_response(self, httprequest, result, explicit_session):
     response = _original_get_response(self, httprequest, result, explicit_session)
-    if isinstance(response, Response):
+    if isinstance(response, Response) and hasattr(http.request, "future_response"):
         response.headers.extend(http.request.future_response.headers)
     return response
 
